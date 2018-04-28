@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './FilePreview.css'
 
 interface IFilePrevierProp
 {
@@ -32,7 +33,7 @@ export class FilePreview extends React.Component<IFilePrevierProp,{}> {
     {
         const headerRow = file.shift();
         const rows = file.map(r=><tr key='a' >{this.renderFileRow(r,false)}</tr>)
-        return  <table>
+        return  <table id='csv-table'>
                     <thead>
                         {this.renderFileRow(headerRow,true)}
                     </thead>
