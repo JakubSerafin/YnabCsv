@@ -1,3 +1,4 @@
+import * as Csv from 'csv-parse'
 import * as React from 'react';
 import './App.css';
 
@@ -43,9 +44,19 @@ class App extends React.Component<{},IAppState> {
       const fileReader = new FileReader()
       fileReader.onloadend = (event)=>
       { 
-        this.setState({fileName: fileReader.result})
+        Csv(fileReader.result,{delimiter:";"},(err,output)=>
+        {
+          if(err!==null)
+          {
+            this.setState({fileName: err})  
+          }
+          else
+          {
+            this.setState({fileName: output})  
+          }
+        });
       }
-      fileReader.readAsText(file[0]);
+      fileReader.readAsText(file[0],"Windows-1250");
     }
   }
 }
