@@ -15,15 +15,30 @@ export class FilePreview extends React.Component<IFilePrevierProp,{}> {
         </div>
     }
     
-    private renderFileRow(cells:string[] )
+
+    private renderFileRow(cells:string[]|undefined, isHeader:boolean ) 
     {
-        return cells.map(c=><td key={c.toString()} >{c}</td>)
+        if(cells!==undefined)
+        {
+            return cells.map(
+                c=>isHeader?
+                <th key={c.toString()}>{c}</th> : 
+                <td key={c.toString()} >{c}</td>);
+        }
+        return null;
     }
 
     private renderFile = (file:string[][]) =>
     {
-        const rows = file.map(r=><tr key='a' >{this.renderFileRow(r)}</tr>)
+        const headerRow = file.shift();
+        const rows = file.map(r=><tr key='a' >{this.renderFileRow(r,false)}</tr>)
         return  <table>
+                    <thead>
+                        {this.renderFileRow(headerRow,true)}
+                    </thead>
+                    <tbody>
+                        rows
+                    </tbody>
                     {rows}
                 </table>
         
