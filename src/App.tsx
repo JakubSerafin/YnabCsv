@@ -37,7 +37,16 @@ class App extends React.Component<{},IAppState> {
 
   private handleNewFile = (e:any) =>
   {
-     this.setState({fileName:this.fileInput.value});
+    const file = this.fileInput.files as FileList;
+    if(file !== null)
+    {
+      const fileReader = new FileReader()
+      fileReader.onloadend = (event)=>
+      { 
+        this.setState({fileName: fileReader.result})
+      }
+      fileReader.readAsText(file[0]);
+    }
   }
 }
 
