@@ -1,12 +1,13 @@
 import * as Csv from 'csv-parse'
 import * as React from 'react';
 import './App.css';
+import {FilePreview} from './FilePreview'
 
-import logo from './logo.svg';
+import logo from '../logo.svg';
 
 interface IAppState
 {
-  fileName:string;
+  csvData:string[][];
 }
 
 class App extends React.Component<{},IAppState> {
@@ -16,7 +17,7 @@ class App extends React.Component<{},IAppState> {
  public constructor(props:any)
  {
    super(props);
-   this.state = {fileName:'eee'};
+   this.state = {csvData:[]};
  }
 
   public render() {
@@ -26,12 +27,8 @@ class App extends React.Component<{},IAppState> {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <p className="App-intro">
-         First, open a CSV File 
-        </p>
         <input ref={e=>this.fileInput=(e as HTMLInputElement)} type="file" onChange={this.handleNewFile} />
-        <div>file: {this.state.fileName}</div>
-        
+        <FilePreview file={this.state.csvData}/>
       </div>
     );
   }
@@ -48,11 +45,11 @@ class App extends React.Component<{},IAppState> {
         {
           if(err!==null)
           {
-            this.setState({fileName: err})  
+            // this.setState({fileName: err})  
           }
           else
           {
-            this.setState({fileName: output})  
+            this.setState({csvData: output})  
           }
         });
       }
