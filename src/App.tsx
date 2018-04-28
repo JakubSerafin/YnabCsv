@@ -3,8 +3,20 @@ import './App.css';
 
 import logo from './logo.svg';
 
-class App extends React.Component {
+interface IAppState
+{
+  fileName:string;
+}
 
+class App extends React.Component<{},IAppState> {
+
+ private fileInput: HTMLInputElement
+
+ public constructor(props:any)
+ {
+   super(props);
+   this.state = {fileName:'eee'};
+ }
 
   public render() {
     return (
@@ -16,10 +28,16 @@ class App extends React.Component {
         <p className="App-intro">
          First, open a CSV File 
         </p>
-        <input name="myFile" type="file" />
+        <input ref={e=>this.fileInput=(e as HTMLInputElement)} type="file" onChange={this.handleNewFile} />
+        <div>file: {this.state.fileName}</div>
         
       </div>
     );
+  }
+
+  private handleNewFile = (e:any) =>
+  {
+     this.setState({fileName:this.fileInput.value});
   }
 }
 
