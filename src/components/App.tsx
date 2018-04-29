@@ -2,6 +2,7 @@ import * as Csv from 'csv-parse'
 import * as React from 'react';
 import './App.css';
 import {FilePreview} from './FilePreview'
+import {ResultTransactions} from "./ResultTransactions"
 
 import logo from '../logo.svg';
 
@@ -28,6 +29,7 @@ class App extends React.Component<{},IAppState> {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <input ref={e=>this.fileInput=(e as HTMLInputElement)} type="file" onChange={this.handleNewFile} />
+        <ResultTransactions Transactions={[]}/>
         <FilePreview file={this.state.csvData}/>
       </div>
     );
