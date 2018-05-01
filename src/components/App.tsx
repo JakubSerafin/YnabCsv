@@ -30,7 +30,7 @@ class App extends React.Component<{},IAppState> {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <input ref={e=>this.fileInput=(e as HTMLInputElement)} type="file" onChange={this.handleNewFile} />
-        <FieldMapper/>
+        <FieldMapper input="test1"/>
         <ResultTransactions Transactions={[]}/>
         <FilePreview file={this.state.csvData}/>
       </div>
