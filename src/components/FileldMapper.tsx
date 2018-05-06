@@ -5,6 +5,7 @@ import { VoidTransformator } from "../logic/Transformations/VoidTransformation";
 interface IFiledMapperProp
 {
     input:string;
+    transformatorsTypes: string[]
 
 }
 
@@ -26,7 +27,8 @@ export class FieldMapper extends React.Component<IFiledMapperProp,IFilledMapperS
         return <div>
                     <span>{this.props.input}</span>
                     {trasformators}
-                    <button onClick={this.addAnother} >Dodaj kolejny</button>
+                    {this.buildDropdown()}
+                    
                </div>
     }
 
@@ -35,5 +37,19 @@ export class FieldMapper extends React.Component<IFiledMapperProp,IFilledMapperS
         const newTransformators = this.state.transformators;
         newTransformators.push(new VoidTransformator);
         this.setState({transformators: newTransformators});
+    }
+
+    private buildDropdown()
+    {
+        return <div className="dropdown">
+        <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Add new transformation
+        </button>
+        <div className="dropdown-menu">
+        {this.props.transformatorsTypes.map(tt=>
+          <a className="dropdown-item" href="#" key={tt} >{tt}</a>        
+        )}
+        </div>
+      </div>
     }
 }
