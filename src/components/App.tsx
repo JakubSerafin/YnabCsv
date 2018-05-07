@@ -6,6 +6,7 @@ import {FilePreview} from './FilePreview'
 import {ResultTransactions} from "./ResultTransactions"
 
 import logo from '../logo.svg';
+import { TransformatorComponentFactory } from './transformators/transformatorsFactory';
 
 interface IAppState
 {
@@ -30,7 +31,7 @@ class App extends React.Component<{},IAppState> {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <input ref={e=>this.fileInput=(e as HTMLInputElement)} type="file" onChange={this.handleNewFile} />
-        <FieldMapper input="test1"  transformatorsTypes={["void", "oink" ]}/>
+        <FieldMapper input="test1"  transformatorsTypes={TransformatorComponentFactory.GetTypes()}/>
         <ResultTransactions Transactions={[]}/>
         <FilePreview file={this.state.csvData}/>
       </div>
